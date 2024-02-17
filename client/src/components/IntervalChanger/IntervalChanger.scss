@@ -1,0 +1,49 @@
+.intervalChanger {
+    margin-top: 1.25rem;
+
+    &__cover {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row-reverse;
+        gap: 0.625rem;
+
+        @media (max-width: 930px) {
+            flex-direction: column;
+            margin: 0 auto;
+        }
+    }
+
+    &__input-cover {
+        @media (max-width: 930px) {
+            text-align: center;
+        }
+    }
+    
+    &__input {
+        width: 3rem;
+        padding: 0.125rem;
+    }
+
+    &__button {
+        padding: 0.5rem;
+        background-color: rgba(110, 217, 236, 0.5);
+        color: rgb(54, 53, 59);
+        border-radius: 0.625rem;
+        border: 0.0625rem solid transparent;
+        transition: all 0.3s ease-out;
+
+        &:hover {
+            border: 0.0625rem solid rgb(142, 142, 211);
+            background-color: transparent;
+        }
+    }
+
+    &__verify {
+        margin: 0.625rem 0;
+
+        @media (max-width: 930px) {
+            text-align: center;
+        }
+    }
+}

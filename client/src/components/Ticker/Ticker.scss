@@ -1,0 +1,40 @@
+.ticker {
+    &__container {
+        display: flex;
+        position: relative;
+        width: 100%;
+    }
+
+    &__items {
+        display: grid;
+        grid-template-columns: 7.25rem 7.25rem 7.25rem 7.25rem 7.25rem 7.25rem 7.25rem 10.375rem;
+        place-items: center;
+        gap: 0.625rem;
+        width: 100%;
+        font-size: 1.125rem;
+        text-align: center;
+
+        @media (max-width: 1050px) {
+            grid-template-columns: 7.25rem 7.25rem 7.25rem 7.25rem 7.25rem 7.25rem 10.375rem;
+        }
+
+        @media (max-width: 930px) {
+            grid-template-columns: 9.375rem 9.375rem 9.375rem;
+        }
+
+        @media (max-width: 500px) {
+            grid-template-columns: 3.75rem 7.5rem 6.25rem;
+        }
+    }
+
+    &__sub-item {
+        font-size: 1rem;
+        margin-top: 0.625rem;
+    }
+
+    &__exchange {
+        @media (max-width: 1050px) {
+            display: none;
+        }
+    }
+}

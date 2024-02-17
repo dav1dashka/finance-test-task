@@ -1,0 +1,36 @@
+.head-tickers {
+    display: grid;
+    grid-template-columns: 7.25rem 7.25rem 7.25rem 7.25rem 7.25rem 7.25rem 7.25rem 10.375rem;
+    place-items: center;
+    gap: 0.625rem;
+    font-size: 1.25rem;
+
+    @media (max-width: 1050px) {
+        grid-template-columns: 7.25rem 7.25rem 7.25rem 7.25rem 7.25rem 7.25rem 10.375rem;
+    }
+
+    @media (max-width: 930px) {
+        grid-template-columns: 9.375rem 9.375rem 9.375rem;
+    }
+
+    @media (max-width: 500px) {
+        grid-template-columns: 4.375rem 7.5rem 6.25rem;
+    }
+
+    &__item {
+        text-align: center;
+        font-weight: bold;
+        padding: 0.625rem;
+        color: rgba(42, 32, 129, 0.808);
+
+        @media (max-width: 500px) {
+            font-size: 1.125rem;
+        }
+    }
+
+    &__exchange {
+        @media (max-width: 1050px) {
+            display: none;
+        }
+    }
+}
