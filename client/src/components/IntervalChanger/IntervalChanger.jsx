@@ -27,12 +27,8 @@ export default function IntervalChanger() {
                 setVerify('Найменше допустиме значення 1 секунда');
                 setNewInterval('');
                 break;
-            case newInterval !== '':
-                socket.emit('changeInterval', parseInt(newInterval) * 1000);
-                setNewInterval('');
-                setVerify('');
-                break;
             default:
+                socket.emit('changeInterval', parseInt(newInterval) * 1000);
                 setNewInterval('');
                 setVerify('');
                 break;
