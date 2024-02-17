@@ -14,9 +14,17 @@ Requirements:
 You can get some ideas how your application may look like on the [Google Finance](https://www.google.com/finance/) page.
 
 As a bonus you can implement (please describe implemented bonus functionality in this file):
-- any additional visual effects to highlight positive or negative changes in the prices
-- the possibility to switch on/off tickers by user
-- the possibility to specify interval time by user
+- any additional visual effects to highlight positive or negative changes in the prices.
+  (work) - function takes price and compares with previous price. Color depends on previous price changes, it can be red or green.
+  
+- the possibility to switch on/off tickers by user.
+  (work) - when clicking on + dropdown menu shows. It got 2 options:
+  1. the possibility to switch on/off tickers by user - we write key and boolean value in local storage and show or hide ticker/s when boolean value changes by click
+  2. the possibility to add/remove ticker from watching group is done same way as the possibility to switch on/off tickers by user 
+  
+- the possibility to specify interval time by user:
+    (work) - We got number in controlled input. When button clicked sends changeInterval emit, which changes interval in server.js
+  
 - the possibility to add/remove ticker from watching group
 - any additional functionality you consider useful
 
