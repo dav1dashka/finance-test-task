@@ -1,6 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-const initialState = {
+const initialState: { isChanged: boolean, } = {
   isChanged: false,
 }
 
@@ -8,7 +8,7 @@ const wgSlice = createSlice({
   name: 'watchGroup',
   initialState,
   reducers: {
-    setWgData(state, action) {
+    setWgData(state, action: PayloadAction<boolean>) {
       state.isChanged = action.payload;
     },
   },

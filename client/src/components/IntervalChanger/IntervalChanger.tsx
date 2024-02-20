@@ -1,29 +1,27 @@
-import { useState } from 'react';
-
-// Підключаємо socket у разі зміни інтервала зміни застосуються і дані почнуть приходити з новим іннтервалом
+import React, { useState, ChangeEvent } from 'react';
 import socket from '../../socket/socketSub';
 
 import './IntervalChanger.scss';
 
-export default function IntervalChanger() {
-    const [newInterval, setNewInterval] = useState('');
-    const [verify, setVerify] = useState('');
+const IntervalChanger: React.FC = () => {
+    const [newInterval, setNewInterval] = useState<string>('');
+    const [verify, setVerify] = useState<string>('');
 
-    const handleChange = (event) => {
+    const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
         setNewInterval(event.target.value);
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = (): void => {
         switch (true) {
             case isNaN(parseFloat(newInterval)):
                 setVerify('Дозволені тільки цифри');
                 setNewInterval('');
                 break;
-            case newInterval > 99999:
+            case Number(newInterval) > 99999:
                 setVerify('Найбільше допустиме значення 99999 секунд');
                 setNewInterval('');
                 break;
-            case newInterval < 1:
+            case Number(newInterval) < 1:
                 setVerify('Найменше допустиме значення 1 секунда');
                 setNewInterval('');
                 break;
@@ -48,4 +46,6 @@ export default function IntervalChanger() {
             </div>
         </div>
     );
-}
+};
+
+export default IntervalChanger;

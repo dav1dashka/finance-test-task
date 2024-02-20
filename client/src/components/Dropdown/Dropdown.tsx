@@ -1,23 +1,33 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import './Dropdown.scss';
 
-export default function Dropdown({ id, handleToggleProp, isEnabled, handleToggleWG, isAdded }) {
+type DropDownType = {
+    id: string,
+    handleToggleProp: () => void,
+    isEnabled: boolean,
+    handleToggleWG: () => void,
+    isAdded: boolean
+}
+
+export default function Dropdown({ id, handleToggleProp, isEnabled, handleToggleWG, isAdded }: DropDownType) {
     const storedIsOpen = sessionStorage.getItem(`isOpen_${id}`) === 'true';
-    const [isOpen, setIsOpen] = useState(storedIsOpen);
-    const dropdownBtnRef = useRef(null);
+    const [isOpen, setIsOpen] = useState<boolean>(storedIsOpen);
+    const dropdownBtnRef = useRef<HTMLButtonElement>(null);
 
     const handleToggle = () => {
         setIsOpen(!isOpen);
     };
 
     useEffect(() => {
-        sessionStorage.setItem(`isOpen_${id}`, isOpen);
+        sessionStorage.setItem(`isOpen_${id}`, `${isOpen}`);
     }, [id, isOpen]);
 
     useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (dropdownBtnRef.current && !dropdownBtnRef.current.contains(event.target)) {
+        const handleClickOutside = (event: MouseEvent) => {
+            const target = event.target as HTMLInputElement;
+
+            if (dropdownBtnRef.current && !dropdownBtnRef.current.contains(target)) {
                 setIsOpen(false);
             }
         };
@@ -34,7 +44,7 @@ export default function Dropdown({ id, handleToggleProp, isEnabled, handleToggle
                 <button className="dropdown-toggle" data-testid='dropdown-toggle' ref={dropdownBtnRef} type='button' onClick={handleToggle}>+</button>
                 {isOpen && (
                     <div className="dropdown-menu" data-testid='dropdown-menu'>
-                        <button className="dropdown-item" data-testid='toggle-show' onClick={handleToggleProp}>
+                        <button className="dropdown-item" data-testid='toggle-show' type='button' onClick={handleToggleProp}>
                             {!isEnabled ? 'Показати' : 'Сховати'}
                         </button>
                         <button className="dropdown-item" data-testid='toggle-add' type='button' onClick={handleToggleWG}>

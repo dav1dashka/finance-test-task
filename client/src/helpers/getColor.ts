@@ -1,5 +1,7 @@
-const getColor = (item, previousItem) => {
-    const checkValue = (valueName) => {
+import { DataType } from "./types";
+
+const getColor = (item: DataType, previousItem: DataType): string => {
+    const checkValue = (valueName: keyof DataType) => {
         switch (true) {
             case previousItem === undefined || item[valueName] === previousItem[valueName]:
                 return '#155769';
@@ -7,7 +9,7 @@ const getColor = (item, previousItem) => {
                 return item[valueName] < previousItem[valueName] ? 'red' : 'green';
         }
     };
-    const color = checkValue('price');
+    const color: string = checkValue('price');
 
     return color;
 };

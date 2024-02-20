@@ -1,30 +1,35 @@
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+
+import { useAppDispatch } from '../../redux/store';
 
 import { setWgData } from '../../redux/reducers/wgSlice/wgSlice';
 import Dropdown from '../Dropdown/Dropdown';
 
+import { DataType } from '../../helpers/types';
+
 import './Ticker.scss';
 
-export default function Ticker({ info, color }) {
+type HeadingProps = { info: DataType, color: string }
+
+export default function Ticker({ info, color }: HeadingProps) {
     // Отримуємо значення з localStorage, щоб користувач бачив зміни навіть на повторному користуванні застосунком
-    const [isEnabled, setIsEnabled] = useState(() => {
-        const savedState = localStorage.getItem(`tickerIsEnabled_${info.ticker}`);
+    const [isEnabled, setIsEnabled] = useState<boolean>(() => {
+        const savedState = localStorage.getItem(`tickerIsEnabled_${info.ticker}`)!;
         return savedState ? JSON.parse(savedState) : true;
     });
 
-    const [isAdded, setIsAdded] = useState(() => {
-        const savedState = localStorage.getItem(`tickerIsInWG_${info.ticker}`);
+    const [isAdded, setIsAdded] = useState<boolean>(() => {
+        const savedState = localStorage.getItem(`tickerIsInWG_${info.ticker}`)!;
         return savedState ? JSON.parse(savedState) : false;
     });
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
-    const handleToggle = () => {
+    const handleToggle = (): void => {
         setIsEnabled(!isEnabled);
     };
 
-    const handleToggleWG = () => {
+    const handleToggleWG = (): void => {
         setIsAdded(!isAdded);
 
         // Змінюємо значення на true, щоб активувати функцію рендерингу компонентів у компонеті WatchGroup.jsx 
@@ -56,7 +61,7 @@ export default function Ticker({ info, color }) {
                                         <div className="ticker__item"><span data-testid='ticker-change_percent-932' style={{ color: color }}>{info.change_percent}%</span></div>
                                         <div className="ticker__item"><span data-testid='ticker-dividend-932' style={{ color: color }}>{info.dividend}</span></div>
                                         <div className="ticker__item"><span data-testid='ticker-yield-932' style={{ color: color }}>{info.yield}</span></div>
-                                        <div className="ticker__item"><span data-testid='ticker-last_trade_time-932'>{/T(\d{2}:\d{2}:\d{2})/.exec(info.last_trade_time)[1]}</span></div>
+                                        <div className="ticker__item"><span data-testid='ticker-last_trade_time-932'>{/T(\d{2}:\d{2}:\d{2})/.exec(info.last_trade_time)![1]}</span></div>
                                     </>
                                     : <>
                                         {/* Рендеримо html з мінімальною інформацією для користувача, щоб усе влізло в екран */}

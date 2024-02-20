@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+
+import { useAppSelector, useAppDispatch } from '../../redux/store';
 
 import { setWgData } from '../../redux/reducers/wgSlice/wgSlice';
 import IntervalChanger from '../IntervalChanger/IntervalChanger';
@@ -7,19 +8,22 @@ import Ticker from '../Ticker/Ticker';
 import HeadTickers from '../HeadTickers/HeadTickers';
 import getColor from '../../helpers/getColor';
 
-import './Tickers.scss'
+import { DataType } from '../../helpers/types';
+
+import './Tickers.scss';
 
 export default function Tickers() {
-    const currentData = useSelector((state) => state.tickers.currentData);
-    const previousData = useSelector((state) => state.tickers.previousData);
-    const isWGChanged = useSelector((state) => state.watchGroup.isChanged);
-    const [renderData, setRenderData] = useState([]);
+    const currentData = useAppSelector((state) => state.tickers.currentData);
+    const previousData = useAppSelector((state) => state.tickers.previousData);
+    const isWGChanged = useAppSelector((state) => state.watchGroup.isChanged);
 
-    const dispatch = useDispatch();
+    const [renderData, setRenderData] = useState<DataType[]>([]);
+
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
-        const filtredData = currentData.filter((item) => {
-            const savedState = localStorage.getItem(`tickerIsInWG_${item.ticker}`);
+        const filtredData = currentData.filter((item: DataType) => {
+            const savedState: string = localStorage.getItem(`tickerIsInWG_${item.ticker}`)!;
             return savedState !== 'true';
         });
 
@@ -36,7 +40,7 @@ export default function Tickers() {
                             <h2 className='tickers__title'>Вас це може зацікавити</h2>
                             <div className="tickers__table">
                                 <HeadTickers />
-                                {renderData.map((item, index) => (
+                                {renderData.map((item: DataType, index: number) => (
                                     <Ticker
                                         key={`${index}-${item.price}-${item.dividend}`}
                                         info={item}
@@ -45,7 +49,8 @@ export default function Tickers() {
                                 ))}
                             </div>
                         </div>
-                        : null}
+                        : null
+                    }
                     <IntervalChanger />
                 </div>
             </div>
